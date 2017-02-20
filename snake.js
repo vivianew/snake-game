@@ -1,77 +1,62 @@
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-          };
-})();
 
 
-<<<<<<< HEAD
 // board: Keep the snakes within or not? might be too hard with two players to only keep em inside
-=======
+
 // board: Keep the snakes within or not? might be too hard with two players 
 
-function edgedetect() {}
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
+// Viewport
+var screenHeight = window.innerHeight;
+var screenWidth = window.innerWidth;
 
-
-
-// Initial Snake Position
-var X = window.innerWidth / 2;
-var Y = window.innerHeight / 2;
-var speed = 10;
-
-// Set Snake position
-var snake = document.getElementByID("snake"); 
-<<<<<<< HEAD
-
-=======
-snake.style.top = Y;
-snake.style.top = X; 
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
-
-
-// Body of the snakes
-
-<<<<<<< HEAD
-var bodySnake = function () { //beginning of the game, the body of the snake is 5/6 circles long? 
+// SNAKE OBJECT: Body of the snakes
+var Snake = function () { //beginning of the game, the body of the snake is 5/6 circles long? 
 	var length = 5;
-	this.posX = 0
-	this.posY = 0;
-	this.speed = 1;
-	snake = ['posX', 'posY'];
+	Snake = ['posX', 'posY', 'posR', 'posS'];
 	
 }
+
+
+
 
 // 2 players aka 2 snakes
-var snake1 = new bodySnake();
-var snake2 = new bodySnake();
+var snake1 = new Snake();
+var snake2 = new Snake();
 
-=======
-var bodySnake = function () { //beginning of the game, the body of the snake is 6 circles long 
-	var length = 5;
-	snake = [];
 
-	
-}
+// Initial Snake1 Position
+var posX = window.innerWidth / 2;
+var posY = window.innerHeight / 2;
 
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
+// Initial Snake2 Position
+var posR = window.innerWidth / 3;
+var posS = window.innerHeight / 3;
+
+
+// Set Snake1 position
+var snake1 = document.getElementByClass("snake");
+snake.style.top = posX;
+snake.style.top = posY;
+
+
+// Set Snake2 position
+var snake2 = document.getElementByClass("snake");
+snake.style.top = posR;
+snake.style.top = posS;
+
+
+
+
+
 
 
 // Snakes on the move
 	var moving = function() {
 for (var i = snake.length - 1; i >= 0; i--) {
-<<<<<<< HEAD
+
 	snake.splice(-1, 1); //remove item from the end of the array and remove one item (index, how many item)
 }} //am i repeating myself here? (OR: snake.pop?)
 
 
-=======
-	snake.splice(-1, 1); //remove item from the end of the array and remove one item
-}} //am i repeating myself here?
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
 
 // Snakes eating food 
 	var eating = function() {
@@ -81,12 +66,13 @@ for (var i = length; i >= 0; i++){
 	} 
 }
 
-<<<<<<< HEAD
-// FOOD 
-=======
-// food 
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
 
+// FOOD 
+
+// food 
+
+
+/*
 	// Food can appear randomly
 	var food = getElementByID("food");
 	food = function(x, y) { 
@@ -136,14 +122,13 @@ if (snakeX == snakeX && snakeY == snakeY ) {
 	} };
 
 
-<<<<<<< HEAD
+
 	//collision of the snake1 and snake2
 
 
 
 
-=======
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
+
 // GAME STATES: earn points & loose
 	
 	//score
@@ -173,51 +158,88 @@ var reset = function () {
 // For the Player to make the snake MOVE
 //snake can't go directly to the right if it's going left because otherwise it'll touch itself 
 
-<<<<<<< HEAD
-=======
-document.addEventListener('keywdown', function(e) {
-
-	
-        switch (keyCode) {
-
-        case 37:
-            if (direction != 'right') {
-                direction = 'left';
-            }
-      
-            break;
-
-        case 39:
-            if (direction != 'left') {
-                direction = 'right';
-                
-            }
-            break;
-
-        case 38:
-            if (direction != 'down') {
-                direction = 'up';
-                
-            }
-            break;
-
-        case 40:
-            if (direction != 'up') {
-                direction = 'down';
-                
-            }
-            break;
-        }};
-
-
-    
 
 
 
+  */   
+
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+var keyUP = false;
+var keyDOWN = false;
+var keyLEFT = false;
+var keyRIGHT = false;
+
+
+document.addEventListener('keydown', function(e) {  
+  
+  switch(e.keyCode){
+    case 38:
+      keyUP = true;
+      break;
+    case 40:
+      keyDOWN = true;
+      break;
+    case 37:
+      keyLEFT = true;
+      break;
+    case 39:
+      keyRIGHT = true;
+      break;
+    default:
+  }
+});
+
+document.addEventListener('keyup', function(e) {  
+  
+  switch(e.keyCode){
+    case 38:
+      keyUP = false;
+      break;
+    case 40:
+      keyDOWN = false;
+      break;
+    case 37:
+      keyLEFT = false;
+      break;
+    case 39:
+      keyRIGHT = false;
+      break;
+    default:
+  }
+  
+});
 
 
 
+function render(){
+  
+  if(keyUP){
+    y -= speed;
+  }
+  
+  if(keyDOWN){
+    y += speed;
+  }
+  
+  if(keyLEFT){
+    x -= speed;
+  }
+  
+  if(keyRIGHT){
+    x += speed;
+  }
+
+snake.style.top = posX;
+snake.style.top = posY;
+
+}
 
 
-
->>>>>>> 29f35a2e0bd2f3fa1ae922d85ffd785498d54ddf
