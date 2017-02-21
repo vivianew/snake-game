@@ -11,8 +11,6 @@
 	        margin: 0;
 	        overflow: hidden;
 		}
-
-
 		.snakeBody {
 			height: 20px;
 	        width: 20px;
@@ -22,7 +20,6 @@
             margin-left: -10px;
             margin-top: -10px;
 		}
-
         .snakeHead {
             height: 40px;
             width: 40px;
@@ -32,7 +29,6 @@
             margin-left: -20px;
             margin-top: -20px;
         }
-
 		#food {
 			height: 20px;
 	        width: 20px;
@@ -41,11 +37,18 @@
 	        margin-top: 20px;
 		}
 
-		#gameboard {
-
+		.foodPart {
+			height: 20px;
+	        width: 20px;
+	        background-color: red;
+	        margin-left: 20px;
+	        margin-top: 20px;
+	        position: absolute;
 		}
 
 
+		#gameboard {
+		}
 		#score {
 			
 		}
@@ -54,10 +57,12 @@
 </head>
 <body>
   <div id="gameboard">
-      <div id="food"></div>
+     
+
   </div>
 
   <script src="./js/Snake.js" ></script>
   <script src="./js/Gameboard.js" ></script>
+  <script src="js/Food.js"></script>
 </body>
 </html>
