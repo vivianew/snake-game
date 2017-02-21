@@ -3,57 +3,31 @@
  */
 
 var Food = function() {
-	
-	var position = {
-		"r": window.innerWidth / 3,
-		"s": window.innerHeight / 3
-	};
+
+    var position = {
+        "r": window.innerWidth / 3,
+        "s": window.innerHeight / 3
+    };
+
+    var foodElement = null;
+    var gameboard = document.getElementById("gameboard");
+    var self = this;
 
 
-this.foodPart = null;
-var gameboard = document.getElementById("gameboard");
-var self = this; 
+    function init(){
 
-}
+        position = {
+            "r": parseInt(window.innerWidth * Math.random()) ,
+            "s": parseInt(window.innerHeight * Math.random())
+        };
 
-//Create a food part
-	//random appearance
-var createFood = function() {
-	var position = {
-		"r": window.innerWidth * Math.random() ,
-		"s": window.innerHeight * Math.random()
-	};
+        foodElement = document.createElement('div');
+        foodElement.classList.add("foodPart");
+        foodElement.style.top = position.s + "px";
+        foodElement.style.left = position.r + "px";
+        gameboard.appendChild(foodElement);
 
-	var food_r = position.r;
-	var food_s = position.s;
-
-	
-	if (position.s <= 10) {
-		position.s = 10;
-	}
-	if (position.s >= (window.innerHeight-10)) {
-		position.s = window.innerHeight-10;
-	}
-
-	if (position.r >= 10) {
-		position.r = 10;
-	}
-	if (position.r >= (window.innerWidth-10)){
-		position.r = window.innerWidth-10;
-	} 
-
-
-
-	var foodPart = document.createElement('div');
-	foodPart.classList.add("foodPart");
-	foodPart.style.top = food_s + "px";
-	foodPart.style.left = food_r + "px";
-	gameboard.appendChild(foodPart);
- 
-console.log("createFood");
-
-debugger;
-
-}
-
-createFood();
+        console.log(position);
+    }
+    init();
+};
