@@ -8,6 +8,10 @@ var Gameboard = function(){
     // var food = [ food objects ];
 
 
+    var food = new Food();
+    var food1 = new Food();
+
+
     /*
      *   Game environment
      */
@@ -17,6 +21,12 @@ var Gameboard = function(){
         "left": false,
         "right": false
     }
+
+
+    // Collision detection
+
+
+
 
     /*
      * Event listeners
