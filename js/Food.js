@@ -1,5 +1,6 @@
 var Food = function() {
 
+
     var position = {
         "r": window.innerWidth / 3,
         "s": window.innerHeight / 3
@@ -23,7 +24,3 @@ var Food = function() {
         foodElement.style.left = position.r + "px";
         gameboard.appendChild(foodElement);
 
-        console.log(position);
-    }
-    init();
-};
