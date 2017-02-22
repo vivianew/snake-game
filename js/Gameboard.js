@@ -25,7 +25,9 @@ var Gameboard = function(){
 
     // Collision detection
     function collisionDetection(){
-      
+
+
+
       // Are all elements availible ?
       if(!(food.foodElement && snake.snakeHead)){
         return;
@@ -36,17 +38,16 @@ var Gameboard = function(){
       var snakeRect = snake.snakeHead.getClientRects()[0];
 
             
-      // Calculate if there a collision
-      
-      if (foodRect.left < snakeRect.left + snakeRect.width &&
-         foodRect.left + food.width > snakeRect.left &&
+        // Calculate if there a collision
+      if(foodRect.left < snakeRect.left + snakeRect.width &&
+         foodRect.left + foodRect.width > snakeRect.left &&
          foodRect.top < snakeRect.top + snakeRect.height &&
          foodRect.height + foodRect.top > snakeRect.top) {
-          // collision detected!
-        
-          console.log("collision detected");
-          food.foodElement.style.backgroundColor = "blue";        
-      }
+         // collision detected!
+
+         console.log("collision detected");
+         food.foodElement.style.backgroundColor = "blue";
+        }
     }
 
     /*
