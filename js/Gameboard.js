@@ -24,17 +24,42 @@ var Gameboard = function(){
 
 
     // Collision detection
+    function collisionDetection(){
 
 function checkCollision(Snake, Food) {
 
     var Snake = document.getElementsByClassName('snakeHead');
     var Food = document.getElementsByClassName('foodPart');
 
+<<<<<<< HEAD
    if (snakeHead.position.y === foodPart.position.r && snakeHead.position.x === foodPart.position.s) {
     return true;
     console.log("impact");
    }
 }
+=======
+      // Are all elements availible ?
+      if(!(food.foodElement && snake.snakeHead)){
+        return;
+      }
+    
+      // Find elements 
+      var foodRect = food.foodElement.getClientRects()[0];
+      var snakeRect = snake.snakeHead.getClientRects()[0];
+
+            
+        // Calculate if there a collision
+      if(foodRect.left < snakeRect.left + snakeRect.width &&
+         foodRect.left + foodRect.width > snakeRect.left &&
+         foodRect.top < snakeRect.top + snakeRect.height &&
+         foodRect.height + foodRect.top > snakeRect.top) {
+         // collision detected!
+
+         console.log("collision detected");
+         food.foodElement.style.backgroundColor = "blue";
+        }
+    }
+>>>>>>> 0bee2a7e96575dd74c391847c2d223f913bcf47c
 
     /*
      * Event listeners
@@ -69,6 +94,7 @@ function checkCollision(Snake, Food) {
 
     function render(){
         snake.render(movement);
+        collisionDetection();
     }
 
     /*
