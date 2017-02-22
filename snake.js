@@ -72,7 +72,7 @@ for (var i = length; i >= 0; i++){
 // food 
 
 
-/*
+
 	// Food can appear randomly
 	var food = getElementByID("food");
 	food = function(x, y) { 
@@ -161,7 +161,7 @@ var reset = function () {
 
 
 
-  */   
+     
 
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
