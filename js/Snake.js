@@ -3,20 +3,20 @@ var Snake = function(){
     var speed = 5;              // Speed of the snake
     var direction = 100;        // The angle of the movement 0 <-> 360
     var turnSpeed = 0.085;
-    var postion = {
+    var position = {
         "x": window.innerWidth / 2,
         "y": window.innerHeight / 2
+
     };
 
     var length = 30;
     this.snakeBody = [];
     this.snakeHead = null;
-    var element = document.getElementById("snake");
+    var snakeHead = null;
     var gameboard = document.getElementById("gameboard");
-
     var self = this;
 
-
+    
     var createSnakeBody = function( x, y){
 
         var bodyPart = document.createElement('div');
@@ -29,8 +29,8 @@ var Snake = function(){
 
 
     var initSnake = function() {
-        var body_x = postion.x;
-        var body_y = postion.y;
+        var body_x = position.x;
+        var body_y = position.y;
 
 
         self.snakeHead = document.createElement('div');
@@ -45,6 +45,7 @@ var Snake = function(){
             createSnakeBody(body_x, body_y);
         }
     }
+
 
     var switchDirection = function(movement){
         if(movement.left){
@@ -72,11 +73,13 @@ var Snake = function(){
             current_x = old_x;
         }
 
-        postion.x += Math.cos(direction) * speed;
-        postion.y += Math.sin(direction) * speed;
-        self.snakeHead.style.top = postion.y + "px";
-        self.snakeHead.style.left = postion.x + "px";
+        position.x += Math.cos(direction) * speed;
+        position.y += Math.sin(direction) * speed;
+        self.snakeHead.style.top = position.y + "px";
+        self.snakeHead.style.left = position.x + "px";
     }
+
+ 
 
     this.render = function (movement) {
 

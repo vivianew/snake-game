@@ -11,12 +11,12 @@ var Food = function() {
     var self = this;
 
 
-    function init(){
+    function init(){ //function to create a new food element (randomly)
 
         position = {
             "r": parseInt(window.innerWidth * Math.random()) ,
             "s": parseInt(window.innerHeight * Math.random())
-        };
+        }; //has to be parseInt for CSS
 
         foodElement = document.createElement('div');
         foodElement.classList.add("foodPart");
@@ -24,3 +24,8 @@ var Food = function() {
         foodElement.style.left = position.r + "px";
         gameboard.appendChild(foodElement);
 
+
+    }
+    init();
+
+};

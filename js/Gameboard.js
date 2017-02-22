@@ -25,8 +25,16 @@ var Gameboard = function(){
 
     // Collision detection
 
+function checkCollision(Snake, Food) {
 
+    var Snake = document.getElementsByClassName('snakeHead');
+    var Food = document.getElementsByClassName('foodPart');
 
+   if (snakeHead.position.y === foodPart.position.r && snakeHead.position.x === foodPart.position.s) {
+    return true;
+    console.log("impact");
+   }
+}
 
     /*
      * Event listeners
@@ -86,3 +94,5 @@ window.requestAnimFrame = (function(){
 })();
 
 var gameBoard = new Gameboard();
+
+
