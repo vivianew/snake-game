@@ -9,7 +9,7 @@ var Food = function() {
         "s": window.innerHeight / 3
     };
 
-    var foodElement = null;
+    this.foodElement = null;
     var gameboard = document.getElementById("gameboard");
     var self = this;
 
@@ -21,13 +21,11 @@ var Food = function() {
             "s": parseInt(window.innerHeight * Math.random())
         };
 
-        foodElement = document.createElement('div');
-        foodElement.classList.add("foodPart");
-        foodElement.style.top = position.s + "px";
-        foodElement.style.left = position.r + "px";
-        gameboard.appendChild(foodElement);
-
-        console.log(position);
+        self.foodElement = document.createElement('div');
+        self.foodElement.classList.add("foodPart");
+        self.foodElement.style.top = position.s + "px";
+        self.foodElement.style.left = position.r + "px";
+        gameboard.appendChild(self.foodElement);
     }
     init();
 };
