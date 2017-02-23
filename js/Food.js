@@ -1,7 +1,3 @@
-/**
- * Created by jens on 20/2/2017.
- */
-
 var Food = function() {
 
     var position = {
@@ -9,9 +5,11 @@ var Food = function() {
         "s": window.innerHeight / 3
     };
 
-    this.foodElement = null;
-    var gameboard = document.getElementById("gameboard");
-    var self = this;
+    this.foodElement = null; //making foodElement PUBLIC with this so we can access it in Gameboard
+    var B = document.getElementById("B");
+    var self = this; //scope issue
+
+
 
 
     function init(){ //function to create a new food element (randomly)
@@ -21,24 +19,16 @@ var Food = function() {
             "s": parseInt(window.innerHeight * Math.random())
         }; //has to be parseInt for CSS
 
-<<<<<<< HEAD
-        foodElement = document.createElement('div');
-        foodElement.classList.add("foodPart");
-        foodElement.style.top = position.s + "px";
-        foodElement.style.left = position.r + "px";
-        gameboard.appendChild(foodElement);
 
-
-    }
-    init();
-
-=======
         self.foodElement = document.createElement('div');
         self.foodElement.classList.add("foodPart");
         self.foodElement.style.top = position.s + "px";
         self.foodElement.style.left = position.r + "px";
-        gameboard.appendChild(self.foodElement);
+        B.appendChild(self.foodElement);
     }
-    init();
->>>>>>> 0bee2a7e96575dd74c391847c2d223f913bcf47c
-};
+         init();
+
+
+ };   
+
+

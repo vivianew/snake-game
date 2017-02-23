@@ -9,7 +9,7 @@ var Snake = function(){
 
     };
 
-    var length = 30;
+    var length = 100;
     this.snakeBody = [];
     this.snakeHead = null;
     var snakeHead = null;
@@ -39,7 +39,6 @@ var Snake = function(){
         self.snakeHead.style.left = body_x + "px";
         gameboard.appendChild( self.snakeHead);
 
-
         for(var i = 0; i<length;i++){
             body_y -= 15;
             createSnakeBody(body_x, body_y);
@@ -56,6 +55,16 @@ var Snake = function(){
             direction += turnSpeed;
         }
     }
+
+   /* var direction = function(go) {
+    	if(go.left) {
+    		direction -= turnSpeed;
+    	}
+    	if (go.right){
+    		direction += turnSpeed;
+    	}
+    }
+	*/
 
     var move = function(){
 
@@ -84,12 +93,22 @@ var Snake = function(){
     this.render = function (movement) {
 
         if(movement.left || movement.right){
-            switchDirection(movement);
+            switchDirection(movement);   
         }
 
         move();
 
     };
+
+    /* this.render = function (go) {
+
+        if(go.left || go.right){
+            direction(go);   
+        }
+
+        move();
+
+    }; */
 
     initSnake();
 
