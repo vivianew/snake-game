@@ -86,9 +86,33 @@ var Snake = function(){
         position.y += Math.sin(direction) * speed;
         self.snakeHead.style.top = position.y + "px";
         self.snakeHead.style.left = position.x + "px";
-    }
+        }
 
- 
+    
+var screenHeight = window.innerHeight;
+var screenWidth = window.innerWidth;
+
+
+function edgeDetect(){
+            if(position.y <=20) {
+                position.y=20;
+            }
+
+            if(position.y >= (screenHeight-20)){
+                position.y=screenHeight-20;
+            }
+
+            if(position.x<= 20){
+                x= 20;
+            }
+
+            if(position.x>= (screenWidth-20)){
+                position.x= screenWidth-20;
+            }
+}
+
+edgeDetect();
+
 
     this.render = function (movement) {
 

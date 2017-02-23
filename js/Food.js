@@ -9,6 +9,13 @@ var Food = function() {
     var B = document.getElementById("B");
     var self = this; //scope issue
 
+function edgeDetection(){
+    if(position.s > window.innerHeight){
+        self.foodElement.remove();
+        return true;
+    }
+        return false;
+}
 
 
 
@@ -27,6 +34,7 @@ var Food = function() {
         B.appendChild(self.foodElement);
     }
          init();
+         edgeDetection();
 
 
  };   
