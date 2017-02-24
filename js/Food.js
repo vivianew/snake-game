@@ -9,13 +9,6 @@ var Food = function() {
     var B = document.getElementById("B");
     var self = this; //scope issue
 
-function edgeDetection(){
-    if(position.s > window.innerHeight){
-        self.foodElement.remove();
-        return true;
-    }
-        return false;
-}
 
 
 
@@ -34,9 +27,24 @@ function edgeDetection(){
         B.appendChild(self.foodElement);
     }
          init();
-         edgeDetection();
 
+ 	function edgeDetect(){      
+if(position.s <=45) {
+                position.s=45;
+            }
 
+            if(position.s >= (screenHeight-45)){
+                position.s=screenHeight-45;
+            }
+
+            if(position.r<= 45){
+                r= 45;
+            }
+
+            if(position.r>= (screenWidth-45)){
+                position.r= screenWidth-45;
+            }
+	}
  };   
 
 
