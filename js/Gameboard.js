@@ -45,6 +45,10 @@ var Gameboard = function(){
 
     this.reset = function(){
 
+
+        var winnerBoard = document.getElementById("winner");
+        winnerBoard.style.display = "none";
+
         var gameBoard = document.getElementById("gameboard");
         gameBoard.innerHTML = "";
 
@@ -56,17 +60,13 @@ var Gameboard = function(){
 
 
 
-    function winner(){
+    function winner(enemy){
 
-        // stop the game
-        // present winner
-  		if snakePlayer1 === enemy {
-  			console.log("Player 2 WON!");
-  			return reset();
-  		} else {
-  			console.log("Player 1 WON!")
-  			return reset ();
-  			}
+        var winnerBoard = document.getElementById("winner");
+        winnerBoard.style.display = "block";
+
+        var displayName = document.getElementById("winnerName");
+        displayName.innerText = "The winner is " + enemy.playerName;
 
     }
 
@@ -124,8 +124,7 @@ var Gameboard = function(){
             if(collisionDetectionBetweenTwoRect(enemyBodyPartRect, snakeRect)) {
                 // collision detected!
                 console.log("Player dies");
-                player.snakeHead.style.backgroundColor = "red";
-                player.snakeBody.style = "red"
+                enemy.winner = true;
                 winner(enemy);
    
             }

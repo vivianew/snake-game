@@ -64,8 +64,29 @@
 			background-size: 100% 100%;
 			position: fixed;
 		}
-		
-		
+
+        #winner{
+            position: fixed;
+            top: 100px;
+            bottom: 100px;
+            left: 100px;
+            right: 100px;
+            border-radius: 50px;
+            z-index: 100;
+            background-color: purple;
+            border: solid 5px #000000;
+            text-align: center;
+            padding: 100px;
+            font-size: 48px;
+        }
+
+        #winner button {
+            width: 300px;
+            height: 150px;
+            border-radius: 20px;
+            font-size: 36px;
+        }
+
 	</style>
 
 
@@ -77,8 +98,11 @@
   <script src="./js/Snake.js" ></script>
   <script src="./js/Gameboard.js" ></script>
 
-  <button id="reset">Reset</button>
 
+  <div id="winner">
+    <h1 id ="winnerName">THE SNAKE PIT</h1>
+    <button id="reset" onclick="gameBoard.reset()">Play Game</button>
+  </div>
 </body>
 </html>
 

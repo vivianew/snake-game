@@ -9,6 +9,9 @@ var Snake = function(player){
 
     };
 
+    this.playerName = player;
+    this.winner = false;
+
     var length = 10;
     this.snakeBody = [];
     this.snakeHead = null;
