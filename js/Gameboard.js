@@ -6,12 +6,7 @@ var Gameboard = function(){
 //PLAYERS: snake & snake1
     var snakePlayer1 = new Snake("player1");
     var snakePlayer2 = new Snake("player2");
-
-    var players = function(player1, player2){
-    player1.snakeHead.style.backgroundColor = "red";
-    player2.snakeHead.stylebackgroundColor="yellow";
-	}
-
+ 
     var firstFood = new Food();
     var secondFood = new Food();
     
