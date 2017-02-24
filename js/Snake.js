@@ -99,6 +99,27 @@ var Snake = function(player){
         position.y += Math.sin(direction) * speed;
         self.snakeHead.style.top = position.y + "px";
         self.snakeHead.style.left = position.x + "px";
+
+//Make the snakes come back in the screen
+        if (position.x <0){
+            position.x = window.innerWidth;
+        }
+
+        if (position.x > window.innerWidth) {
+            position.x=0;
+        }
+
+        if (position.y <0) {
+            position.y = window.innerHeight;
+        }   
+
+        if (position.y > window.innerHeight) {
+            position.y=0;
+        }
+
+
+
+
     }
 
     this.render = function (movement) {

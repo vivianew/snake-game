@@ -7,6 +7,10 @@ var Gameboard = function(){
     var snakePlayer1 = new Snake("player1");
     var snakePlayer2 = new Snake("player2");
 
+    var players = function(player1, player2){
+    player1.snakeHead.style.backgroundColor = "red";
+    player2.snakeHead.stylebackgroundColor="yellow";
+	}
 
     var firstFood = new Food();
     var secondFood = new Food();
@@ -51,10 +55,18 @@ var Gameboard = function(){
     }
 
 
+
     function winner(){
 
         // stop the game
         // present winner
+  		if snakePlayer1 === enemy {
+  			console.log("Player 2 WON!");
+  			return reset();
+  		} else {
+  			console.log("Player 1 WON!")
+  			return reset ();
+  			}
 
     }
 
@@ -107,12 +119,15 @@ var Gameboard = function(){
         enemyBody.forEach(function(enemyBodyPart, index){
 
             var enemyBodyPartRect = enemyBodyPart.getClientRects()[0];
+            var gameboard = document.getElementById('gameboard');
 
             if(collisionDetectionBetweenTwoRect(enemyBodyPartRect, snakeRect)) {
                 // collision detected!
                 console.log("Player dies");
                 player.snakeHead.style.backgroundColor = "red";
+                player.snakeBody.style = "red"
                 winner(enemy);
+   
             }
         });
     }
@@ -168,6 +183,7 @@ var Gameboard = function(){
         snakePlayer2.render(movement);
         collisionDetection(snakePlayer1, snakePlayer2);
         collisionDetection(snakePlayer2, snakePlayer1);
+
     }
 
     /*
