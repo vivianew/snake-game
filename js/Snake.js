@@ -1,4 +1,4 @@
-var Snake = function(){
+var Snake = function(player){
 
     var speed = 5;              // Speed of the snake
     var direction = 100;        // The angle of the movement 0 <-> 360
@@ -9,18 +9,31 @@ var Snake = function(){
 
     };
 
-    var length = 100;
+    var length = 10;
     this.snakeBody = [];
     this.snakeHead = null;
     var snakeHead = null;
     var gameboard = document.getElementById("gameboard");
     var self = this;
 
-    
-    var createSnakeBody = function( x, y){
 
+    this.grow = function(){
         var bodyPart = document.createElement('div');
         bodyPart.classList.add("snakeBody");
+        bodyPart.classList.add("snake");
+        bodyPart.style.top = this.snakeBody[length-1].style.top;
+        bodyPart.style.left = this.snakeBody[length-1].style.left;
+        length++;
+        speed++;
+        gameboard.appendChild(bodyPart);
+        self.snakeBody.push(bodyPart);
+    }
+
+    
+    var createSnakeBody = function( x, y){
+        var bodyPart = document.createElement('div');
+        bodyPart.classList.add("snakeBody");
+        bodyPart.classList.add("snake");
         bodyPart.style.top = y + "px";
         bodyPart.style.left = x + "px";
         gameboard.appendChild(bodyPart);
@@ -29,12 +42,22 @@ var Snake = function(){
 
 
     var initSnake = function() {
+
+
+        if(player == "player1"){
+            position.x = window.innerWidth - 100;
+        }else{
+
+            position.x = 100;
+        }
+
+
         var body_x = position.x;
         var body_y = position.y;
 
-
         self.snakeHead = document.createElement('div');
         self.snakeHead.classList.add("snakeHead");
+        self.snakeHead.classList.add("snake");
         self.snakeHead.style.top = body_y + "px";
         self.snakeHead.style.left = body_x + "px";
         gameboard.appendChild( self.snakeHead);
@@ -47,24 +70,14 @@ var Snake = function(){
 
 
     var switchDirection = function(movement){
-        if(movement.left){
+        if(movement[player].left){
             direction -= turnSpeed;
         }
 
-        if(movement.right){
+        if(movement[player].right){
             direction += turnSpeed;
         }
     }
-
-   /* var direction = function(go) {
-    	if(go.left) {
-    		direction -= turnSpeed;
-    	}
-    	if (go.right){
-    		direction += turnSpeed;
-    	}
-    }
-	*/
 
     var move = function(){
 
@@ -86,53 +99,16 @@ var Snake = function(){
         position.y += Math.sin(direction) * speed;
         self.snakeHead.style.top = position.y + "px";
         self.snakeHead.style.left = position.x + "px";
-        }
-
-    
-var screenHeight = window.innerHeight;
-var screenWidth = window.innerWidth;
-
-
-function edgeDetect(){
-            if(position.y <=20) {
-                position.y=20;
-            }
-
-            if(position.y >= (screenHeight-20)){
-                position.y=screenHeight-20;
-            }
-
-            if(position.x<= 20){
-                x= 20;
-            }
-
-            if(position.x>= (screenWidth-20)){
-                position.x= screenWidth-20;
-            }
-}
-
-edgeDetect();
-
+    }
 
     this.render = function (movement) {
 
-        if(movement.left || movement.right){
-            switchDirection(movement);   
+        if(movement[player].left || movement[player].right){ // We are using a variable for the key. So just like arrays
+            switchDirection(movement);
         }
 
         move();
-
     };
-
-    /* this.render = function (go) {
-
-        if(go.left || go.right){
-            direction(go);   
-        }
-
-        move();
-
-    }; */
 
     initSnake();
 

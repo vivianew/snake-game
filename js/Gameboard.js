@@ -4,21 +4,12 @@ var Gameboard = function(){
      *   Game variables
      */
 //PLAYERS: snake & snake1
-    var snake = new Snake();
-    var snake1 = new Snake();
-
-	//Differentiate the second snake from the first
-    var q = document.getElementsByClassName("snakeHead")
-    var s = q[1];
-    s.setAttribute("id", "player2");
+    var snakePlayer1 = new Snake("player1");
+    var snakePlayer2 = new Snake("player2");
 
 
-    // var food = [ food objects ];
-
-
-    var food = new Food();
-    // var food1 = new Food();
-// 
+    var firstFood = new Food();
+    var secondFood = new Food();
     
     /*
      *   Game environment
@@ -26,114 +17,126 @@ var Gameboard = function(){
     var height = window.innerHeight;
     var width  = window.innerWidth;
     var movement = {
-        "left": false,
-        "right": false
-    }
-
-
-    // Collision detection for food
-    function collisionDetection(){
-
-
-     //   foods.forEach(function())
-
-      // Are all elements available ? If not, no need to check for collision 
-      if(!(food.foodElement && snake.snakeHead)){
-        return;
-      }
-    
-      // Find elements 
-      var foodRect = food.foodElement.getClientRects()[0];
-      var snakeRect = snake.snakeHead.getClientRects()[0];
-
-            
-        // Calculate if there a collision
-      if(foodRect.left < snakeRect.left + snakeRect.width &&
-         foodRect.left + foodRect.width > snakeRect.left &&
-         foodRect.top < snakeRect.top + snakeRect.height &&
-         foodRect.height + foodRect.top > snakeRect.top) {
-         // collision detected!
-
-         console.log("collision detected");
-         food.foodElement.style.backgroundColor = "blue";
-
-         deleteFood();
-         init();
-         
+        "player1": {
+            "left": false,
+            "right": false
+        },
+        "player2": {
+            "left": false,
+            "right": false
         }
+    };
+
+
+    function collisionDetectionBetweenTwoRect(rect1, rect2){
+
+        return  rect1.left < rect2.left + rect2.width &&
+                rect1.left + rect1.width > rect2.left &&
+                rect1.top < rect2.top + rect2.height &&
+                rect1.height + rect1.top > rect2.top;
     }
 
 
-//collision w/ with the snake and its tail
-function collisionSnakeTail() {
+    // Call gameBoard.reset(); in the HTML
 
-     
-        //find elements 
-        var snakeHead = snake.snakeHead.getClientRects()[0];
-        var snakeBody = snake.snakeBody.getClientRects()[0];
+    this.reset = function(){
 
-        if (snakeHead.left < snakeBody.left + snakeBody.width &&
-            snakeHead.left + snakeHead.width >
-            snakeRect.left && 
-            snakeHead.top < snakeBody.top + snakeBody.height &&
-            snakeHead.height + snakeHead.top > snakeBody.top) {
+        var gameBoard = document.getElementById("gameboard");
+        gameBoard.innerHTML = "";
 
-            console.log("tail's touched!");
-}
-}
-
-var B = document.getElementById("B");
-
-  function init(){ //function to create a new food element (randomly)
-    
-         position = {
-            "r": parseInt(window.innerWidth * Math.random()) ,
-            "s": parseInt(window.innerHeight * Math.random())
-        }; //has to be parseInt for CSS
-
-
-        self.foodElement = document.createElement('div');
-        self.foodElement.classList.add("foodPart");
-        self.foodElement.style.top = position.s + "px";
-        self.foodElement.style.left = position.r + "px";
-        B.appendChild(self.foodElement);
+        snakePlayer1 = new Snake("player1");
+        snakePlayer2 = new Snake("player2");
+        firstFood = new Food();
+        secondFood = new Food();
     }
-        init();
 
 
- function deleteFood() {
-	var b = document.getElementsByClassName('foodPart');
+    function winner(){
 
-	B.removeChild(B.firstChild);
-	}
-    
+        // stop the game
+        // present winner
+
+    }
 
 
+    function collisionDetection(player, enemy){
 
-//add new element in the array which is the snake's body
+        // Collision detection for firstFood
 
-/*  function growSnake() {
-		var gameboard = document.getElementById("gameboard");
-		var tail = document.createElement('div');
-		tail.classList.add("snakeBody");
-		gameboard.appendChild(tail);
-		snakeBody.push(tail);
-		console.log("bigger")
-	}
+        // Are all elements available ? If not, no need to check for collision
+        if(!(firstFood.foodElement && player.snakeHead)){
+            return;
+        }
 
-*/
+        // Find elements
+        var foodRect = firstFood.foodElement.getClientRects()[0];
+        var snakeRect = player.snakeHead.getClientRects()[0];
+
+
+        // Calculate if there a collision
+        if(collisionDetectionBetweenTwoRect(foodRect, snakeRect)) {
+            // collision detected!
+            firstFood.foodElement.remove();
+            firstFood = new Food();
+            player.grow();
+        }
+
+        // Collision detection for secondFood
+
+
+        // Are all elements available ? If not, no need to check for collision
+        if(!(secondFood.foodElement && player.snakeHead)){
+            return;
+        }
+
+        // Find elements
+        var foodRect = secondFood.foodElement.getClientRects()[0];
+
+        // Calculate if there a collision
+        if(collisionDetectionBetweenTwoRect(foodRect, snakeRect)) {
+            // collision detected!
+            secondFood.foodElement.remove();
+            secondFood = new Food();
+            player.grow();
+        }
+
+
+        // A player dies if the players hits the tail of the the enemy
+
+        var enemyBody = enemy.snakeBody;
+        enemyBody.forEach(function(enemyBodyPart, index){
+
+            var enemyBodyPartRect = enemyBodyPart.getClientRects()[0];
+
+            if(collisionDetectionBetweenTwoRect(enemyBodyPartRect, snakeRect)) {
+                // collision detected!
+                console.log("Player dies");
+                player.snakeHead.style.backgroundColor = "red";
+                winner(enemy);
+            }
+        });
+    }
+
+
     /*
      * Event listeners
      */
-//For the 1st player = snake
+
+    //For the 1st player = snake
     document.addEventListener('keydown', function(e) {
 
         switch(e.keyCode){
             case 37:
-                movement.left = true;
+                movement.player1.left = true;
                 break;
             case 39:
-                movement.right = true;
+                movement.player1.right = true;
+                break;
+            case 81:
+                movement.player2.left = true;
+                break;
+            case 68:
+                movement.player2.right = true;
                 break;
             default:
         }
@@ -143,10 +146,16 @@ var B = document.getElementById("B");
 
         switch(e.keyCode){
             case 37:
-                movement.left = false;
+                movement.player1.left = false;
                 break;
             case 39:
-                movement.right = false;
+                movement.player1.right = false;
+                break;
+            case 81:
+                movement.player2.left = false;
+                break;
+            case 68:
+                movement.player2.right = false;
                 break;
             default:
         }
@@ -154,39 +163,11 @@ var B = document.getElementById("B");
     });
 
 
-//keyCode for the 2nd player = snake1
-
- document.addEventListener('keydown', function(f) {
-
-  		switch(f.keyCode){
-            case 81:
-               go.left = true;
-                break;
-           	case 68:
-               go.right = true;
-               	break;
-           default:
-        }
-    });
-    document.addEventListener('keyup', function(f) {
-
-  		switch(f.keyCode){
-            case 81:
-               go.left = false;
-                break;
-           	case 68:
-               go.right = false;
-               	break;
-           default:
-        }
-    });
-
-
     function render(){
-        snake.render(movement);
-        collisionDetection();
-        //snake.s.render(go);
-        
+        snakePlayer1.render(movement);
+        snakePlayer2.render(movement);
+        collisionDetection(snakePlayer1, snakePlayer2);
+        collisionDetection(snakePlayer2, snakePlayer1);
     }
 
     /*
